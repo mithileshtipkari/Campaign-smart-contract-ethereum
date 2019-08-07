@@ -1,3 +1,3 @@
-Campaign smart contract on ethereum suggests a solution for Kickstarter's issue where contributors to projects have no control on how the money they invested is being used and fraudsters may use that money for their own purpose.
+Campaign smart contract on ethereum suggests a solution for Kickstarter's issue where contributors to projects have no control on how the money they invested is being used and fraudsters may use that money for their own purpose. To prevent this behaviour using Campaign Contract by not depositing all contibuted money to project manager's account. Instead, it will be stored along with the contract and project manager has to request first in order to spend that money and based on voting/approvals of contributors the manager can then spend the money.
 
 This is a demonstration project based on [this](https://www.udemy.com/course/ethereum-and-solidity-the-complete-developers-guide/) course of Ethereum Blockchain by Stephen Grider
