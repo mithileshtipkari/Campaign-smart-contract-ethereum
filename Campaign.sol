@@ -35,7 +35,7 @@ contract Campaign{
         requests.push(req);
     }
 
-    function getRequestAtIndex(uint index) public restricted returns(Request){
+    function getRequestAtIndex(uint index) public restricted view returns(Request){
         return requests[index];
     }
 }
