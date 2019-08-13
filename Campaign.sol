@@ -2,7 +2,7 @@ pragma solidity ^0.4.17;
 
 contract Campaign{
   struct Request{
-        string discription;
+        string description;
         uint value;
         address recipient;
         bool isComplete;
@@ -26,7 +26,7 @@ contract Campaign{
   }
 
   function createRequest(string description, uint value, address recipient) public restricted{
-        Request req = Request({
+        Request memory req = Request({
             description: description,
             value: value,
             recipient: recipient,
