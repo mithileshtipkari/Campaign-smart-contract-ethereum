@@ -41,4 +41,20 @@ contract Campaign{
         });
         requests.push(req);
     }
+
+    function approveRequest(uint index) public  {
+        Request storage requestToBeApproved = requests[index];
+
+        //check if the person calling this function is a contributor to our Campaignn
+        require(approvers[msg.sender]);
+
+        //check is request is not complete yet
+        require(!requestToBeApproved.isComplete);
+
+        //check is that person has not already approved this perticular Request
+        require(!requestToBeApproved.approvals[msg.sender]);
+
+        requestToBeApproved.approvals[msg.sender] = true;
+        requestToBeApproved.approvalCount++;
+    }
 }
