@@ -48,10 +48,10 @@ contract Campaign{
         //check if the person calling this function is a contributor to our Campaignn
         require(approvers[msg.sender]);
 
-        //check is request is not complete yet
+        //check if request is not complete yet
         require(!requestToBeApproved.isComplete);
 
-        //check is that person has not already approved this perticular Request
+        //check if that person has not already approved this perticular Request
         require(!requestToBeApproved.approvals[msg.sender]);
 
         requestToBeApproved.approvals[msg.sender] = true;
