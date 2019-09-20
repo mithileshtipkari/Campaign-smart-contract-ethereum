@@ -57,4 +57,9 @@ contract Campaign{
         requestToBeApproved.approvals[msg.sender] = true;
         requestToBeApproved.approvalCount++;
     }
+
+    function finalizeRequest(uint index) public restricted{
+        Request storage requestToBeFinalized = requests[index];
+        require(!requestToBeFinalized.isComplete);
+    }
 }
