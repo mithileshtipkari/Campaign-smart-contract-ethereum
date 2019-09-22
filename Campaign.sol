@@ -10,10 +10,11 @@ contract Campaign{
         mapping(address => bool) approvals;
     }
 
-    Request[] requests;
+    Request[] public requests;
     address public manager;
     uint public minimumContribution;
     mapping(address => bool) public approvers;
+    uint public contributorsCount;
 
     modifier restricted(){
         require(msg.sender == manager);
@@ -28,6 +29,7 @@ contract Campaign{
     function contribute() public payable{
         require(msg.value > minimumContribution);
         approvers[msg.sender] = true;
+        contributorsCount++;
     }
 
     function createRequest(string description, uint value, address recipient) public restricted{
@@ -48,10 +50,10 @@ contract Campaign{
         //check if the person calling this function is a contributor to our Campaignn
         require(approvers[msg.sender]);
 
-        //check if request is not complete yet
+        //check is request is not complete yet
         require(!requestToBeApproved.isComplete);
 
-        //check if that person has not already approved this perticular Request
+        //check is that person has not already approved this perticular Request
         require(!requestToBeApproved.approvals[msg.sender]);
 
         requestToBeApproved.approvals[msg.sender] = true;
@@ -60,6 +62,17 @@ contract Campaign{
 
     function finalizeRequest(uint index) public restricted{
         Request storage requestToBeFinalized = requests[index];
+
+        //check is request is not complete yet
         require(!requestToBeFinalized.isComplete);
+
+        //request approvers should be greater than half of the contributors
+        require(requestToBeFinalized.approvalCount > (contributorsCount/2));
+
+        //send the money to the vendor
+        requestToBeFinalized.recipient.transfer(requestToBeFinalized.value);
+
+        //make request as complete
+        requestToBeFinalized.isComplete = true;
     }
 }
