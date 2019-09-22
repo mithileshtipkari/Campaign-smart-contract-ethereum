@@ -4,8 +4,12 @@ contract CampaignFactory{
     address[] public deployedCampaigns;
 
     function createCampaign(uint minimumContribution) public {
-        address newCampaign = new Campaign(minimumContribution);
+        address newCampaign = new Campaign(minimumContribution, msg.sender);
         deployedCampaigns.push(newCampaign);
+    }
+
+    function getDeployedCampaign() public view returns (address[]){
+        return deployedCampaigns;
     }
 }
 
@@ -30,8 +34,8 @@ contract Campaign{
         _;
     }
 
-    function Campaign(uint minContri) public{
-        manager = msg.sender;
+    function Campaign(uint minContri, address userCreator) public{
+        manager = userCreator;
         minimumContribution = minContri;
     }
 
