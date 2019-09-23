@@ -47,4 +47,13 @@ describe('Campaign', () => {
     const manager = await campaign.methods.manager().call();
     assert.equal(accounts[0], manager);
   });
+
+  it('allows people to contribute to Campaign and mark them as a contributor/approver', async () => {
+    await campaign.methods.contribute().send({
+      value : '220',
+      from : accounts[1]
+    });
+    const isContributor = await campaign.methods.approvers(accounts[1]).call();
+    assert(isContributor);
+  });
 });
