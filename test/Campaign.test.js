@@ -31,3 +31,10 @@ beforeEach( async () => {
 
   campaign = await new web3.eth.Contract(JSON.parse(compiledCampaign.interface), campaignAddress); // (ABI of Campaign, address at which it is already deployed)
 });
+
+describe('Campaign', () => {
+  it('deploys factory and campaign', () => {
+    assert.ok(factory.options.address);
+    assert.ok(campaign.options.address);
+  });
+});
