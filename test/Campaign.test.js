@@ -38,6 +38,11 @@ describe('Campaign', () => {
     assert.ok(campaign.options.address);
   });
 
+  it('factory returns deployed contract', async () => {
+    const deployedAddress = await factory.methods.getDeployedCampaigns().call();
+    assert.equal(deployedAddress, campaign.options.address);
+  })
+
   it('makes caller as the manager', async () => {
     const manager = await campaign.methods.manager().call();
     assert.equal(accounts[0], manager);
