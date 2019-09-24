@@ -66,5 +66,14 @@ describe('Campaign', () => {
     } catch(err){
       assert(err);
     }
-  })
+  });
+
+  it('allows manager to create a payment request', async () =>{
+    await campaign.methods.createRequest('purchase office stationary', 9999, '0xFEC903eCf63DA93Bd3821b4DeB01dbD2b9Be279e').send({
+      from : accounts[0],
+      gas : '1000000'
+    });
+    const request = await campaign.methods.requests(0).call();
+    assert.equal(request.description, 'purchase office stationary');
+  });
 });
