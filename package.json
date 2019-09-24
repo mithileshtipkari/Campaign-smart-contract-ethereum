@@ -4,7 +4,7 @@
   "description": "This project provides a solution to Kickstarter's issue by managing the money contributed to a certain project/campaign with a smart contract deployed on blockchain",
   "main": "index.js",
   "scripts": {
-    "test":"mocha"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -21,6 +21,7 @@
     "ganache-cli": "^6.7.0",
     "mocha": "^6.2.0",
     "solc": "^0.4.17",
+    "truffle-hdwallet-provider": "0.0.3",
     "web3": "^1.2.1"
   }
 }
