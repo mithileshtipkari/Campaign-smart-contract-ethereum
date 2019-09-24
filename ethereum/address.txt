@@ -1,0 +1,2 @@
+address of deployed campaign factory on rinkeby network
+0xf2b550FA251911af1B39899e59f3b18350a54a02
