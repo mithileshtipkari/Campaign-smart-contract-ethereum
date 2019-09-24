@@ -76,4 +76,45 @@ describe('Campaign', () => {
     const request = await campaign.methods.requests(0).call();
     assert.equal(request.description, 'purchase office stationary');
   });
+
+  it('works end to end', async () => {
+    //contribute to campaign
+    await campaign.methods.contribute().send({
+      from : accounts[0],
+      value : web3.utils.toWei('10', 'ether')
+    });
+
+    //manager will create a payment request
+    await campaign.methods.createRequest('install internet', web3.utils.toWei('5', 'ether'), accounts[2]).send({
+      from : accounts[0],
+      gas : '1000000'
+    });
+
+    //let us note the current balance of accounts[2]
+    let currentBalance = await web3.eth.getBalance(accounts[2]);
+    currentBalance = web3.utils.fromWei(currentBalance, 'ether');
+    currentBalance = parseFloat(currentBalance);
+    console.log('currentBalance -', currentBalance); //after finalizing the request accounts[2] will receive the money in payment request
+
+    //now contributors will approve the request
+    await campaign.methods.approveRequest(0).send({
+      from : accounts[0],
+      gas : '1000000'
+    });
+
+    // currently at this stage, contributors - 1, approvers - 1
+    //now manager will finalize the request (it will be finalized because approvers(1) are greater than half-of-contributors(0))
+    await campaign.methods.finalizeRequest(0).send({
+      from : accounts[0],
+      gas : '1000000'
+    });
+
+    //check accounts[2] balance, if greater he received the money in payment request and hence request is successfully finalized
+    let updatedBalance = await web3.eth.getBalance(accounts[2]);
+    updatedBalance = web3.utils.fromWei(updatedBalance, 'ether');
+    updatedBalance = parseFloat(updatedBalance);
+    console.log('updated -', updatedBalance);
+
+    assert(updatedBalance > currentBalance);
+  });
 });
