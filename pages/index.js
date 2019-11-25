@@ -5,7 +5,9 @@ import Layout from '../components/Layout';
 
 class CampaignIndex extends Component{
   static async getInitialProps(){
+    console.log("getting initial props");
     const campaigns = await factory.methods.getDeployedCampaigns().call();
+    console.log("campaigns size -", campaigns.length);
     return { campaigns} ;
   }
 

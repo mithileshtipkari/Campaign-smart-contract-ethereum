@@ -8,18 +8,22 @@ class CampaignNew extends Component{
   constructor(props){
     super(props);
     this.state = {
-      minimumContribution : ''
+      minimumContribution : '',
+      name: '',
+      description: ''
     }
   }
 
   onSubmit = async (event) => {
     event.preventDefault();
     console.log('here');
-    console.log(this.state.minimumContribution);
+    console.log('contri-', this.state.minimumContribution);
+    console.log('name -', this.state.name);
+    console.log('desc-', this.state.description);
     const accounts = await web3.eth.getAccounts();
     console.log('acc- ', accounts);
     factory.methods
-      .createCampaign(this.state.minimumContribution)
+      .createCampaign(this.state.minimumContribution, this.state.name, this.state.description)
       .send({
         from : accounts[0]
       });
@@ -37,6 +41,21 @@ class CampaignNew extends Component{
                         placeholder='Minimum Contribution in Wei'
                         value={this.state.minimumContribution}
                         onChange={event => {this.setState({ minimumContribution : event.target.value})}}
+                        />
+
+                <Input label='Name of Contract'
+                      
+                        labelPosition='right'
+                        placeholder="Title of the contract"
+                        value={this.state.name}
+                        onChange={event => {this.setState({name : event.target.value})}}
+                        />
+
+                <Input label='Description of contract'
+                        labelPosition='right'
+                        placeholder='Description of contract'
+                        value = {this.state.description}
+                        onChange={event => {this.setState({description:event.target.value})}}
                         />
               </Form.Field>
               <Button primary type='submit'>Create</Button>
