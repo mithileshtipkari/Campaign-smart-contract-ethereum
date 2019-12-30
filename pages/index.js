@@ -11,18 +11,24 @@ class CampaignIndex extends Component{
     console.log("getting initial props");
     var campaignCount = await factory.methods.campaignCount().call();
     console.log('campaignCount -- ', campaignCount);
-    // await factory.methods.createCampaign(1,"Populating mars","elon musk").send({
+    // await factory.methods.createCampaign(1,"IronMan suite","I believe I can fly").send({
     //   from : accounts[0],
     //   gas : '2000000'
     // });
-    const names[];
-    const descriptions[];
-    const minContri[];
-    campaignCount = await factory.methods.campaignCount().call();
-    console.log('campaignCount after-- ', campaignCount);
-    const okarr = await factory.methods.campaignInfoArray(0).call();
-    console.log('ok--', okarr);
-    console.log('name -', okarr.name);
+    const names= [];
+    const descriptions = [];
+    const minContri = [];
+
+    for( var i = 0; i < campaignCount; i++){
+        var campaignInfo = await factory.methods.campaignInfoArray(i).call();
+
+        console.log('---------------' + (i+1) + '----------------------');
+        console.log('campaignInfo--', campaignInfo);
+        console.log('name -', campaignInfo.name);
+        console.log('decs -', campaignInfo.description);
+        console.log('minContri -', campaignInfo.minimumContribution);
+        console.log('add -', campaignInfo.deployedCampaignAddress);
+    }
 
     const message = "hi mith";
     return { message } ;
