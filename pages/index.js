@@ -15,13 +15,14 @@ class CampaignIndex extends Component{
     //   from : accounts[0],
     //   gas : '2000000'
     // });
+    const names[];
+    const descriptions[];
+    const minContri[];
     campaignCount = await factory.methods.campaignCount().call();
     console.log('campaignCount after-- ', campaignCount);
     const okarr = await factory.methods.campaignInfoArray(0).call();
     console.log('ok--', okarr);
     console.log('name -', okarr.name);
-    // const campaigns = await factory.methods.campaignInfoArray().call();
-    // console.log("campaigns size -", campaigns.length);
 
     const message = "hi mith";
     return { message } ;
