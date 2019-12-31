@@ -1,45 +1,43 @@
 import React, { Component } from 'react';
-import { Card, Button, Icon } from 'semantic-ui-react';
+import { Card, Button, Icon, Item } from 'semantic-ui-react';
 import factory from '../ethereum/factory';
 import Layout from '../components/Layout';
 import web3 from '../ethereum/web3';
+import CampaignInformation from '../ethereum/CampaignInformation';
 class CampaignIndex extends Component{
   static async getInitialProps(){
-    // console.log('web3 in index-', web3);
     const accounts = await web3.eth.getAccounts();
-    console.log('accounts -', accounts);
-    console.log("getting initial props");
-    var campaignCount = await factory.methods.campaignCount().call();
-    console.log('campaignCount -- ', campaignCount);
-    // await factory.methods.createCampaign(1,"IronMan suite","I believe I can fly").send({
-    //   from : accounts[0],
-    //   gas : '2000000'
-    // });
-    const names= [];
-    const descriptions = [];
-    const minContri = [];
+
+    const campaignCount = await factory.methods.campaignCount().call();
+
+    var campaignsList = [];
 
     for( var i = 0; i < campaignCount; i++){
-        var campaignInfo = await factory.methods.campaignInfoArray(i).call();
-
-        console.log('---------------' + (i+1) + '----------------------');
-        console.log('campaignInfo--', campaignInfo);
-        console.log('name -', campaignInfo.name);
-        console.log('decs -', campaignInfo.description);
-        console.log('minContri -', campaignInfo.minimumContribution);
-        console.log('add -', campaignInfo.deployedCampaignAddress);
+        var campaignInfoOnBlockchain = await factory.methods.campaignInfoArray(i).call();
+        var campaignInformation = new CampaignInformation(
+                            campaignInfoOnBlockchain.name,
+                            campaignInfoOnBlockchain.description,
+                            campaignInfoOnBlockchain.minimumContribution,
+                            campaignInfoOnBlockchain.deployedCampaignAddress
+                        );
+        campaignsList.push(campaignInformation);
     }
 
-    const message = "hi mith";
-    return { message } ;
+    return { campaignsList } ;
   }
 
   renderCards(){
     console.log('in render cards');
-    const items = this.props.campaigns.map(address => {
+    // let childKey = -1;
+
+    const items = this.props.campaignsList.map( campaign => {
+      // childKey++;
       return {
-        header : address,
-        description : <a>View details</a>,
+        // childKey: childKey,
+        header: campaign.name,
+        description: campaign.description,
+        meta: 'Minimum Contribution to this Campaign is - ' + campaign.minimumContribution + ' Wei',
+        extra: 'This campaign is deployed to address - ' + campaign.deployedCampaignAddress,
         fluid : true
       }
     });
@@ -55,18 +53,12 @@ class CampaignIndex extends Component{
     );
   }
 
-  async ok(){
-    // console.log('in ok -', this.state.message);
-    const campaignCount = await factory.methods.campaignCount().call();
-    console.log('campaignCount in ok-- ', campaignCount);
-  }
   render(){
-    // this.ok();
     return(
       <Layout>
         <div>
           <h3 style={{marginTop:'10px'}}>Open Campaigns</h3>
-
+          <div>{this.renderCards()}</div>
         </div>
       </Layout>
     );
