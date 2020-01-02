@@ -4,6 +4,8 @@ import factory from '../ethereum/factory';
 import Layout from '../components/Layout';
 import web3 from '../ethereum/web3';
 import CampaignInformation from '../ethereum/CampaignInformation';
+import { Link } from '../routes';
+
 class CampaignIndex extends Component{
   static async getInitialProps(){
     const accounts = await web3.eth.getAccounts();
@@ -37,7 +39,17 @@ class CampaignIndex extends Component{
         header: campaign.name,
         description: campaign.description,
         meta: 'Minimum Contribution to this Campaign is - ' + campaign.minimumContribution + ' Wei',
-        extra: 'This campaign is deployed to address - ' + campaign.deployedCampaignAddress,
+        extra: (
+          <Link route={`/campaigns/${campaign.deployedCampaignAddress}`}>
+            <a>
+              <Button
+                content="View Campaign"
+                primary
+              >
+              </Button>
+            </a>
+          </Link>
+        ),
         fluid : true
       }
     });
@@ -57,7 +69,16 @@ class CampaignIndex extends Component{
     return(
       <Layout>
         <div>
-          <h3 style={{marginTop:'10px'}}>Open Campaigns</h3>
+          <h3 style={{marginTop:'10px'}}>Created Campaigns</h3>
+          <Link route='/campaigns/new'>
+            <a>
+              <Button floated="right"
+                      content="Create a Campaign"
+                      icon="add circle"
+                      primary
+              ></Button>
+            </a>
+          </Link>
           <div>{this.renderCards()}</div>
         </div>
       </Layout>
