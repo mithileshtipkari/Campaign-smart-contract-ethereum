@@ -16,22 +16,15 @@ class CampaignNew extends Component{
   }
 
   onSubmit = async (event) => {
-    try{
-
       event.preventDefault();
-      console.log('here');
-      console.log('contri-', this.state.minimumContribution);
-      console.log('name -', this.state.name);
-      console.log('desc-', this.state.description);
-      const accounts = await web3.eth.getAccounts();
-      console.log('acc- ', accounts);
-      factory.methods
-        .createCampaign(this.state.minimumContribution, this.state.name, this.state.description)
-        .send({
-          from : accounts[0]
-        });
-    } catch (err){
-      console.log('wrong - ', err.message);
+      try{
+        const accounts = await web3.eth.getAccounts();
+        await factory.methods
+          .createCampaign(this.state.minimumContribution, this.state.name, this.state.description)
+          .send({
+            from : accounts[0]
+          });
+    } catch (err){ // errors that occur within await can be caught using try-catch but error in promises are to be caught by chaining/attaching .catch to promise
       this.setState({ errorMessage: err.message});
     }
   }
