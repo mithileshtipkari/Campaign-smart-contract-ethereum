@@ -50,6 +50,7 @@ class CampaignNew extends Component{
                         onChange={event => {this.setState({ minimumContribution : event.target.value})}}
                         />
 
+                <label>Name of Contract</label>
                 <Input label='Name of Contract'
 
                         labelPosition='right'
@@ -58,6 +59,7 @@ class CampaignNew extends Component{
                         onChange={event => {this.setState({name : event.target.value})}}
                         />
 
+                <label>Description of contract</label>
                 <Input label='Description of contract'
                         labelPosition='right'
                         placeholder='Description of contract'
