@@ -11,12 +11,14 @@ class CampaignNew extends Component{
       minimumContribution : '',
       name: '',
       description: '',
-      errorMessage: ''
+      errorMessage: '',
+      loading: false
     }
   }
 
   onSubmit = async (event) => {
       event.preventDefault();
+      this.setState({ loading : true });
       try{
         const accounts = await web3.eth.getAccounts();
         await factory.methods
@@ -24,9 +26,10 @@ class CampaignNew extends Component{
           .send({
             from : accounts[0]
           });
-    } catch (err){ // errors that occur within await can be caught using try-catch but error in promises are to be caught by chaining/attaching .catch to promise
-      this.setState({ errorMessage: err.message});
-    }
+      }catch (err){ // errors that occur within await can be caught using try-catch but error in promises are to be caught by chaining/attaching .catch to promise
+        this.setState({ errorMessage: err.message});
+      }
+      this.setState({ loading : false});
   }
 
   render(){
@@ -59,7 +62,7 @@ class CampaignNew extends Component{
                         />
               </Form.Field>
               <Message error header="Oops some error occurred!" list={[this.state.errorMessage]} />
-              <Button primary type='submit'>Create</Button>
+              <Button loading={this.state.loading} primary type='submit'>Create</Button>
             </Form>
         </Layout>
     )
