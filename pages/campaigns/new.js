@@ -3,6 +3,7 @@ import Layout from '../../components/Layout';
 import { Form, Button, Input, Message } from 'semantic-ui-react';
 import factory from '../../ethereum/factory';
 import web3 from '../../ethereum/web3';
+import { Router } from '../../routes';
 
 class CampaignNew extends Component{
   constructor(props){
@@ -26,6 +27,9 @@ class CampaignNew extends Component{
           .send({
             from : accounts[0]
           });
+
+        //redirecting user to homepage
+        Router.pushRoute('/');
       }catch (err){ // errors that occur within await can be caught using try-catch but error in promises are to be caught by chaining/attaching .catch to promise
         this.setState({ errorMessage: err.message});
       }
