@@ -104,4 +104,18 @@ contract Campaign{
         //make request as complete
         requestToBeFinalized.isComplete = true;
     }
+
+    function getSummery() public view returns(uint, uint, uint, uint, address){
+        return (
+            minimumContribution,
+            this.balance,
+            requests.length,
+            contributorsCount,
+            manager
+        );
+    }
+
+    function getRequestsCount() public view returns(uint){
+        return requests.length;
+    }
 }
