@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Layout from '../../components/Layout';
 import Campaign from '../../ethereum/campaign';
-import { Header, Icon, Card } from 'semantic-ui-react';
+import { Header, Icon, Card, Grid } from 'semantic-ui-react';
 import web3 from '../../ethereum/web3';
 import ContributeForm from '../../components/contributeForm';
 
@@ -70,8 +70,14 @@ class ShowCampaign extends Component{
         <h3>Campaign Info</h3>
         <hr/>
         {this.renderHeading()}
-        {this.renderCards()}
-        <ContributeForm />
+        <Grid>
+          <Grid.Column width={10}>
+              {this.renderCards()}
+          </Grid.Column>
+          <Grid.Column width={6}>
+            <ContributeForm />
+          </Grid.Column>
+        </Grid>
       </Layout>
     );
   }
