@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Layout from '../../components/Layout';
 import Campaign from '../../ethereum/campaign';
 import { Header, Icon, Card } from 'semantic-ui-react';
+import web3 from '../../ethereum/web3';
 
 class ShowCampaign extends Component{
   static async getInitialProps(props){
@@ -33,28 +34,28 @@ class ShowCampaign extends Component{
       } = this.props;
       const items= [
       {
-        header: 'Minimum Contribution',
-        meta: minimumContribution,
-        description: 'This is the minimum contribution to this Campaign'
+        meta: 'Minimum Contribution',
+        header: minimumContribution,
+        description: 'This is the minimum contribution to this Campaign in order to become an contributor'
       },
       {
-        header: 'Balance available in this Campaign',
-        meta: balance,
+        meta: 'Balance available in this Campaign (ether)',
+        header: web3.utils.fromWei(balance, 'ether'),
         description: 'This is the balance remaining in the Campaign'
       },
       {
-        header: 'Requests count',
-        meta: requests,
+        meta: 'Requests count',
+        header: requests,
         description: 'No. of requests to spend the amount in the Campaign'
       },
       {
-        header: 'Contributors',
-        meta: contributors,
+        meta: 'Contributors count',
+        header: contributors,
         description: 'Total number of people contributing to this Campaign'
       },
       {
-        header: 'Manager address',
-        meta: manager,
+        meta: 'Manager address',
+        header: manager,
         description: 'This is the address of the manager of the Campaign',
         style: { overflowWrap: 'break-word'}
       }
