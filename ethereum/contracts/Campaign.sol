@@ -105,8 +105,10 @@ contract Campaign{
         requestToBeFinalized.isComplete = true;
     }
 
-    function getSummery() public view returns(uint, uint, uint, uint, address){
+    function getSummary() public view returns(string, string, uint, uint, uint, uint, address){
         return (
+            campaignName,
+            campaignDescription,
             minimumContribution,
             this.balance,
             requests.length,

@@ -1,31 +1,40 @@
 import React, { Component } from 'react';
 import Layout from '../../components/Layout';
 import Campaign from '../../ethereum/campaign';
-import { Card } from 'semantic-ui-react';
+import { Header, Icon, Card } from 'semantic-ui-react';
 
 class ShowCampaign extends Component{
   static async getInitialProps(props){
     const campaign = Campaign(props.query.address);
 
-    const summary = await campaign.methods.getSummery().call();//getSummery spelling is wrong
+    const summary = await campaign.methods.getSummary().call();//getSummery spelling is wrong
     console.log('summary -', summary);
     return {
-      minimumContribution: summary[0],
-      balance: summary[1],
-      requests: summary[2],
-      contributors: summary[3],
-      manager: summary[4]
+      name: summary[0],
+      description: summary[1],
+      minimumContribution: summary[2],
+      balance: summary[3],
+      requests: summary[4],
+      contributors: summary[5],
+      manager: summary[6]
     };
   }
 
+  renderHeading(){
+    const{ name, description } = this.props;
+    return [
+      <Header as='h2'>{name}</Header>,
+      <Header as='h3'>{description}</Header>
+    ];
+  }
   renderCards(){
       const{
         balance, minimumContribution, requests,contributors, manager
       } = this.props;
       const items= [
       {
-        meta: 'Minimum Contribution',
-        header: minimumContribution,
+        header: 'Minimum Contribution',
+        meta: minimumContribution,
         description: 'This is the minimum contribution to this Campaign'
       },
       {
@@ -57,6 +66,8 @@ class ShowCampaign extends Component{
     return (
       <Layout>
         <h3>Campaign Info</h3>
+        <hr/>
+        {this.renderHeading()}
         {this.renderCards()}
       </Layout>
     );

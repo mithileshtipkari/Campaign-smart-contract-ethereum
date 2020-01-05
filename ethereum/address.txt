@@ -1,16 +1,2 @@
 address of deployed campaign factory on rinkeby network
-0xf2b550FA251911af1B39899e59f3b18350a54a02
-
-
-address of the new contract with name, description, minimumContribution and deployed contract address
-0x108E656A1aE7EC3896C4CCF3eED5bE67d635ABbc
-
-new
-0xF2679A9A412894DA25fFC77A5e99B52F1C8Aa3DF
-
-
-newest
-0x0E6658552E9Cc13F396cCCEEE5900F68b0040a9e
-
-current
-0x9Ba824CD108a9bb894878A1a8Ba08540ab63FBeb
+0x47faBE36Bdc86E269c1CCbA55164ffed5e3c0F08
