@@ -12,6 +12,7 @@ class ShowCampaign extends Component{
     const summary = await campaign.methods.getSummary().call();//getSummery spelling is wrong
     console.log('summary -', summary);
     return {
+      address: props.query.address,
       name: summary[0],
       description: summary[1],
       minimumContribution: summary[2],
@@ -75,7 +76,7 @@ class ShowCampaign extends Component{
               {this.renderCards()}
           </Grid.Column>
           <Grid.Column width={6}>
-            <ContributeForm />
+            <ContributeForm address={this.props.address}/>
           </Grid.Column>
         </Grid>
       </Layout>
