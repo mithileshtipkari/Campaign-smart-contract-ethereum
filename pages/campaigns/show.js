@@ -36,7 +36,7 @@ class ShowCampaign extends Component{
       } = this.props;
       const items= [
       {
-        meta: 'Minimum Contribution',
+        meta: 'Minimum Contribution (Wei)',
         header: minimumContribution,
         description: 'This is the minimum contribution to this Campaign in order to become an contributor'
       },
