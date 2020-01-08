@@ -12,7 +12,7 @@ class RequestIndex extends Component{
     console.log('requestCount -', requestCount);
 
     const requests = await Promise.all(
-      Array(requestCount)
+      Array(parseInt(requestCount))
         .fill()
         .map((element, index) => {
           console.log('index -', index);
