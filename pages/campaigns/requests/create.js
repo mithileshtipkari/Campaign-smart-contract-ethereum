@@ -30,6 +30,8 @@ class CreateRequest extends Component{
       await campaign.methods.createRequest(description, valueInWei, recipient).send({
           from: accounts[0]
         });
+
+      Router.pushRoute(`/campaigns/${this.props.address}/requests`);
     } catch (err){
       this.setState({errorMessage: err.message});
     }
@@ -39,6 +41,9 @@ class CreateRequest extends Component{
     return(
       <Layout>
         <h3>Create a Request to spend</h3>
+        <Link route={`/campaigns/${this.props.address}/requests`}>
+          <a>View Requests</a>
+        </Link>
         <hr/>
         <Form onSubmit={this.onSubmit} error={!!this.state.errorMessage}>
           <Form.Field>
