@@ -22,7 +22,7 @@ class CreateRequest extends Component{
   onSubmit = async (event) => {
     event.preventDefault();
     try{
-      this.setState({loading: true});
+      this.setState({loading: true, errorMessage: ''});
       const accounts = await web3.eth.getAccounts();
       const campaign = Campaign(this.props.address);
       const { description, value, recipient } = this.state;
