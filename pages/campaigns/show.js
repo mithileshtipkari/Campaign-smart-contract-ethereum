@@ -26,10 +26,12 @@ class ShowCampaign extends Component{
 
   renderHeading(){
     const{ name, description } = this.props;
-    return [
-      <Header as='h2'>{name}</Header>,
-      <Header as='h3'>{description}</Header>
-    ];
+    return (
+      <div>
+        <Header as='h2'>{name}</Header>
+        <Header as='h3'>{description}</Header>
+      </div>
+    );
   }
   renderCards(){
       const{
